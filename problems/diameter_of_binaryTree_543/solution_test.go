@@ -12,7 +12,7 @@ func Test_diameterOfBinaryTree(t *testing.T) {
 		want int
 	}{
 		{
-			name: "test",
+			name: "test 1",
 			args: args{
 				root: &TreeNode{
 					Val: 1,
@@ -29,7 +29,7 @@ func Test_diameterOfBinaryTree(t *testing.T) {
 			want: 3,
 		},
 		{
-			name: "test",
+			name: "test 2",
 			args: args{
 				root: &TreeNode{
 					Val: 1,

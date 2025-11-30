@@ -23,33 +23,25 @@ type TreeNode struct {
 
 两节点之间路径的 长度 由它们之间边数表示。
 */
+
 func diameterOfBinaryTree(root *TreeNode) int {
+	var maxDiameter int
 	if root == nil {
 		return 0
 	}
-	leftDept := maxDepthTree(root.Left)
-	rightDept := maxDepthTree(root.Right)
-
-	maxDiameter := diameterOfBinaryTree(root.Left) + diameterOfBinaryTree(root.Right)
-	return max(leftDept+rightDept, maxDiameter)
-}
-
-func maxDepthTree(root *TreeNode) int {
-	if root == nil {
-		return 0
+	var dfs func(node *TreeNode) int
+	dfs = func(node *TreeNode) int {
+		if node == nil {
+			return 0
+		}
+		// 左子树的最大深度
+		leftDepth := dfs(node.Left)
+		// 右子树的最大深度
+		rightDepth := dfs(node.Right)
+		// 当前节点的最大直径和所有节点的最大直径对比一下
+		maxDiameter = max(maxDiameter, leftDepth+rightDepth)
+		return max(leftDepth+rightDepth) + 1
 	}
-	leftDepth := maxDepthTree(root.Left)
-	rightDepth := maxDepthTree(root.Right)
-
-	if rightDepth > leftDepth {
-		return rightDepth + 1
-	}
-	return leftDepth + 1
+	dfs(root)
+	return maxDiameter
 }
-
-//func max(a, b int) int {
-//	if a > b {
-//		return a
-//	}
-//	return b
-//}
